@@ -903,22 +903,54 @@ textarea:focus-visible {
 }
 
 /* ==========================================================================
-   YOUTUBE TILE VIDEO STACK DECK LAYOUT
+   YOUTUBE TILE VIDEO HORIZONTAL SCROLL DECK LAYOUT
    ========================================================================== */
-.projects-slider-deck {
-  position: relative;
-  max-width: 720px;
-  margin: 60px auto 0 auto;
-  height: 520px;
+.projects {
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.projects .section-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: clamp(60px, 8vw, 100px);
+  padding-bottom: 40px;
+}
+
+.projects-scroll-wrapper {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.projects-slider-deck {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(24px, 4vw, 48px);
+  width: max-content;
+  padding-left: calc((100vw - min(1800px, 100vw)) / 2 + min(1800px, 100vw) * 0.04);
+  padding-right: calc((100vw - min(1800px, 100vw)) / 2 + min(1800px, 100vw) * 0.04);
+  position: relative;
+  will-change: transform;
+  margin-top: 40px;
+  touch-action: pan-y;
 }
 
 .yt-project-card {
-  position: absolute;
-  width: 100%;
-  max-width: 500px;
+  position: relative;
+  width: clamp(300px, 28vw, 450px);
+  flex-shrink: 0;
   background: var(--glass-pill);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -926,11 +958,18 @@ textarea:focus-visible {
   border-radius: 24px;
   padding: 20px;
   box-shadow: 0 15px 30px var(--shadow-color);
-  transform-origin: bottom center;
   will-change: transform, opacity;
   transition:
     background-color var(--transition-speed) ease,
-    border-color var(--transition-speed) ease;
+    border-color var(--transition-speed) ease,
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.3s ease;
+}
+
+.yt-project-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--text-color);
+  box-shadow: 0 20px 40px var(--shadow-color);
 }
 
 .yt-thumbnail-wrapper {
@@ -1004,6 +1043,40 @@ textarea:focus-visible {
 .yt-card-btn:hover {
   background: var(--text-color);
   color: var(--bg-color);
+}
+
+.projects-pin-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Enable touch sliding (native horizontal swipe) on touch devices and mobile/tablet viewports */
+@media (max-width: 992px), (pointer: coarse) {
+  .projects-scroll-wrapper {
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    touch-action: pan-x pan-y !important;
+  }
+  
+  .projects-scroll-wrapper::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  .projects-slider-deck {
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+    margin-top: 20px;
+    transform: none !important; /* Disable GSAP translation */
+  }
+
+  .yt-project-card {
+    scroll-snap-align: center;
+    width: clamp(280px, 75vw, 380px) !important;
+  }
 }
 
 /* --- Clean Input Processing Lines (Contact) --- */
@@ -1465,12 +1538,12 @@ textarea:focus-visible {
   }
 
   .projects-slider-deck {
-    max-width: 100%;
-    height: 460px;
+    margin-top: 30px;
+    gap: 24px;
   }
 
   .yt-project-card {
-    max-width: 400px;
+    width: 380px;
   }
 }
 
@@ -1521,12 +1594,12 @@ textarea:focus-visible {
   }
 
   .projects-slider-deck {
-    height: 420px;
-    margin-top: 40px;
+    margin-top: 20px;
+    gap: 20px;
   }
 
   .yt-project-card {
-    max-width: 90%;
+    width: 320px;
     padding: 16px;
   }
 
@@ -1684,12 +1757,12 @@ textarea:focus-visible {
   }
 
   .projects-slider-deck {
-    height: 360px;
-    margin-top: 20px;
+    margin-top: 15px;
+    gap: 16px;
   }
 
   .yt-project-card {
-    max-width: 95%;
+    width: 280px;
     padding: 12px;
     border-radius: 16px;
   }

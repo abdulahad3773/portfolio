@@ -1,585 +1,481 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abdul Ahad | Portfolio - Frontend Web Developer & Designer</title>
 
-    <!-- SEO Meta Tags -->
-    <meta
-      name="description"
-      content="Abdul Ahad - Frontend Web Developer & Web Designer building modern, responsive, and user-friendly digital experiences. Specializing in HTML, CSS, JavaScript, and Python."
-    />
-    <meta
-      name="keywords"
-      content="Abdul Ahad, frontend developer, web designer, portfolio, HTML, CSS, JavaScript, Python, web development"
-    />
-    <meta name="author" content="Abdul Ahad" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://abdulahad.dev" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdul Ahad | Portfolio - Frontend Web Developer & Designer</title>
 
-    <!-- Open Graph / Social Sharing -->
-    <meta
-      property="og:title"
-      content="Abdul Ahad | Frontend Web Developer & Designer"
-    />
-    <meta
-      property="og:description"
-      content="Building modern, responsive, and user-friendly digital experiences. Explore my portfolio."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://abdulahad.dev" />
-    <meta
-      property="og:image"
-      content="https://abdulahad.dev/images/og-image.png"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Abdul Ahad Portfolio" />
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Abdul Ahad - Frontend Web Developer & Web Designer building modern, responsive, and user-friendly digital experiences. Specializing in HTML, CSS, JavaScript, and Python." />
+  <meta name="keywords"
+    content="Abdul Ahad, frontend developer, web designer, portfolio, HTML, CSS, JavaScript, Python, web development" />
+  <meta name="author" content="Abdul Ahad" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://abdulahad.dev" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Abdul Ahad | Frontend Web Developer & Designer"
-    />
-    <meta
-      name="twitter:description"
-      content="Building modern, responsive, and user-friendly digital experiences."
-    />
-    <meta
-      name="twitter:image"
-      content="https://abdulahad.dev/images/og-image.png"
-    />
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Abdul Ahad | Frontend Web Developer & Designer" />
+  <meta property="og:description"
+    content="Building modern, responsive, and user-friendly digital experiences. Explore my portfolio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://abdulahad.dev" />
+  <meta property="og:image" content="https://abdulahad.dev/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Abdul Ahad Portfolio" />
 
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="images/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="images/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="images/apple-touch-icon.png"
-    />
-    <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#0a0a0a" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Abdul Ahad | Frontend Web Developer & Designer" />
+  <meta name="twitter:description" content="Building modern, responsive, and user-friendly digital experiences." />
+  <meta name="twitter:image" content="https://abdulahad.dev/images/og-image.png" />
 
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body class="dark-theme">
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
 
-    <div class="grid-overlay">
-      <div class="grid-line"></div>
-      <div class="grid-line"></div>
-      <div class="grid-line"></div>
-      <div class="grid-line"></div>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="dark-theme">
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme) {
+        document.body.className = savedTheme;
+      } else {
+        const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.body.className = systemPrefersDark ? "dark-theme" : "light-theme";
+      }
+    })();
+  </script>
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-dot"></div>
+
+  <div class="grid-overlay">
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo magnetic">AHAD<span>.</span></a>
+
+      <div class="nav-wrapper">
+        <div class="nav-active-bubble"></div>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#about" class="nav-item magnetic">ABOUT</a>
+          <a href="#skills" class="nav-item magnetic">SKILLS</a>
+          <a href="#education" class="nav-item magnetic">EDUCATION</a>
+          <a href="#languages" class="nav-item magnetic">LANGUAGES</a>
+          <a href="#projects" class="nav-item magnetic">PROJECTS</a>
+          <a href="#contact" class="nav-item magnetic">CONTACT</a>
+        </nav>
+      </div>
+
+      <div class="nav-right">
+        <button class="theme-toggle magnetic" id="themeToggle" aria-label="Toggle Dark/Light Mode" aria-pressed="false">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+
+        <button class="menu-toggle magnetic" id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <header class="navbar">
-      <div class="nav-container">
-        <a href="#home" class="logo magnetic">AHAD<span>.</span></a>
-
-        <div class="nav-wrapper">
-          <div class="nav-active-bubble"></div>
-          <nav class="nav-links" aria-label="Main navigation">
-            <a href="#about" class="nav-item magnetic">ABOUT</a>
-            <a href="#skills" class="nav-item magnetic">SKILLS</a>
-            <a href="#education" class="nav-item magnetic">EDUCATION</a>
-            <a href="#languages" class="nav-item magnetic">LANGUAGES</a>
-            <a href="#projects" class="nav-item magnetic">PROJECTS</a>
-            <a href="#contact" class="nav-item magnetic">CONTACT</a>
-          </nav>
-        </div>
-
-        <div class="nav-right">
-          <button
-            class="theme-toggle magnetic"
-            id="themeToggle"
-            aria-label="Toggle Dark/Light Mode"
-            aria-pressed="false"
-          >
-            <i class="fa-solid fa-sun"></i>
-          </button>
-
-          <button
-            class="menu-toggle magnetic"
-            id="menuToggle"
-            aria-label="Toggle Menu"
-            aria-expanded="false"
-          >
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-container">
-          <div class="hero-title-row">
-            <div class="hero-main-title">
-              <div class="title-line">
-                <h1 class="gsap-reveal tech-glitch" data-text="ABDUL">ABDUL</h1>
-              </div>
-              <div class="title-line">
-                <h1
-                  class="gsap-reveal outline tech-glitch-outline"
-                  data-text="AHAD"
-                >
-                  AHAD
-                </h1>
-              </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg"></div>
+      <div class="hero-container">
+        <div class="hero-title-row">
+          <div class="hero-main-title">
+            <div class="title-line">
+              <h1 class="gsap-reveal tech-glitch" data-text="ABDUL">ABDUL</h1>
             </div>
-          </div>
-
-          <div class="hero-meta gsap-fade-up">
-            <div class="meta-left">
-              <h2>FRONTEND WEB DEVELOPER & <br />WEB DESIGNER</h2>
-              <p class="tagline">
-                Building modern, responsive, and user-friendly digital
-                experiences.
-              </p>
-              <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary magnetic"
-                  >COLLABORATE <i class="fa-solid fa-arrow-right"></i
-                ></a>
-                <a href="#" class="btn btn-secondary magnetic"
-                  >RESUME <i class="fa-solid fa-download"></i
-                ></a>
-              </div>
+            <div class="title-line">
+              <h1 class="gsap-reveal outline tech-glitch-outline" data-text="AHAD">
+                AHAD
+              </h1>
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="about" id="about">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-header">
-            <span class="section-subtitle">BIOGRAPHY</span>
-            <h2 class="section-title">What I Do</h2>
-          </div>
-          <div class="about-content">
-            <div class="about-card gsap-trigger-card">
-              <span class="card-num"># THE DIGITAL ARCHITECT</span>
-              <h3>
-                Building refined digital products with a focus on clean
-                aesthetic and baseline performance.
-              </h3>
-              <p>
-                As a dedicated Web Developer and Designer, I bridge the gap
-                between pure code and elegant design. I transform complex ideas
-                into simple, beautiful, and intuitive web experiences that
-                perform exceptionally across all platforms.
-              </p>
+        <div class="hero-meta gsap-fade-up">
+          <div class="meta-left">
+            <h2>FRONTEND WEB DEVELOPER & <br />WEB DESIGNER</h2>
+            <p class="tagline">
+              Building modern, responsive, and user-friendly digital
+              experiences.
+            </p>
+            <div class="hero-buttons">
+              <a href="#contact" class="btn btn-primary magnetic">COLLABORATE <i
+                  class="fa-solid fa-arrow-right"></i></a>
+              <a href="#" class="btn btn-secondary magnetic">RESUME <i class="fa-solid fa-download"></i></a>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="skills" id="skills">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-skills">
-            <span class="section-subtitle">INVENTORY</span>
-            <h2 class="section-title">Tech Stack</h2>
-          </div>
-          <div class="skills-grid">
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-html5"></i> HTML</span
-                >
-                <span class="pill-perc">95%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="95%"></div>
-              </div>
-            </div>
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-css3-alt"></i> CSS</span
-                >
-                <span class="pill-perc">90%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="90%"></div>
-              </div>
-            </div>
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-js"></i> JavaScript</span
-                >
-                <span class="pill-perc">85%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-python"></i> Python</span
-                >
-                <span class="pill-perc">90%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="90%"></div>
-              </div>
-            </div>
-
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-solid fa-database"></i> SQL Database</span
-                >
-                <span class="pill-perc">85%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-github"></i> Git & GitHub</span
-                >
-                <span class="pill-perc">85%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="85%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="education" id="education">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-education">
-            <span class="section-subtitle">ACADEMIC BACKGROUND</span>
-            <h2 class="section-title">Education</h2>
-          </div>
-
-          <div class="education-grid">
-            <!-- SSC Card -->
-            <div class="edu-card">
-              <div class="edu-header">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span class="edu-year">Secondary School Certificate</span>
-              </div>
-              <h3 class="edu-title">SSC (Matriculation)</h3>
-              <p class="edu-info">
-                Federal Board (FBISE) | Fazaia Inter College, Kallar Kahar
-              </p>
-              <div class="edu-grade">88%</div>
-            </div>
-
-            <!-- HSSC Card -->
-            <div class="edu-card">
-              <div class="edu-header">
-                <i class="fa-solid fa-book-open"></i>
-                <span class="edu-year"
-                  >Higher Secondary School Certificate</span
-                >
-              </div>
-              <h3 class="edu-title">HSSC (Intermediate)</h3>
-              <p class="edu-info">
-                Federal Board (FBISE) | Fazaia Inter College, Kallar Kahar
-              </p>
-              <div class="edu-grade">85%</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="languages" id="languages">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-languages">
-            <span class="section-subtitle">COMMUNICATION</span>
-            <h2 class="section-title">Languages</h2>
-          </div>
-          <div class="languages-grid">
-            <div class="language-card gsap-lang">
-              <div class="lang-meta">
-                <span class="lang-title">English</span>
-                <span class="lang-status">Professional</span>
-              </div>
-              <p>
-                Fluent execution in technical documentation, professional
-                collaboration, and structural communication.
-              </p>
-            </div>
-            <div class="language-card gsap-lang">
-              <div class="lang-meta">
-                <span class="lang-title">اردو (Urdu)</span>
-                <span class="lang-status">Native</span>
-              </div>
-              <p>
-                Complete fluid mastery in native conversation, linguistic
-                articulation, and local coordination.
-              </p>
-            </div>
-            <div class="language-card gsap-lang">
-              <div class="lang-meta">
-                <span class="lang-title">PUNJABI</span>
-                <span class="lang-status">Native</span>
-              </div>
-              <p>
-                Complete fluid mastery in native conversation, linguistic
-                articulation, and local coordination.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="projects" id="projects">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-projects">
-            <span class="section-subtitle">PORTFOLIO</span>
-            <h2 class="section-title">Featured Works</h2>
-          </div>
-
-          <!-- Container for the 4 Project Cards -->
-          <div class="projects-slider-deck">
-            <!-- Card 1 -->
-            <div class="yt-project-card gsap-onic-card">
-              <div class="yt-thumbnail-wrapper">
-                <img
-                  src="images/image2.png"
-                  alt="Ahad Shoes - E-Commerce Project"
-                  loading="lazy"
-                />
-              </div>
-              <div class="yt-meta-row">
-                <p class="yt-channel-name">Web Development</p>
-                <h3 class="yt-card-title">AHAD SHOES</h3>
-                <p class="yt-card-desc">E-COMMERCE.</p>
-                <a href="https://abdulahad3773.github.io/E-commerce/" class="yt-card-btn"
-                  >View Project <i class="fa-solid fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="yt-project-card gsap-onic-card">
-              <div class="yt-thumbnail-wrapper">
-                <img
-                  src="images/image1.png"
-                  alt="Makkah Travelers - UI/UX Design Project"
-                  loading="lazy"
-                />
-              </div>
-              <div class="yt-meta-row">
-                <p class="yt-channel-name">UI/UX Design</p>
-                <h3 class="yt-card-title">Makkah Travelers</h3>
-                <p class="yt-card-desc">
-                  High-fidelity graphics with silky transitions.
-                </p>
-                <a href="#" class="yt-card-btn"
-                  >View Project <i class="fa-solid fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="yt-project-card gsap-onic-card">
-              <div class="yt-thumbnail-wrapper">
-                <img
-                  src="images/image3.png"
-                  alt="YouTube Clone - Frontend Project"
-                  loading="lazy"
-                />
-              </div>
-              <div class="yt-meta-row">
-                <p class="yt-channel-name">Front end</p>
-                <h3 class="yt-card-title">YOUTUBE CLONE</h3>
-                <p class="yt-card-desc">JUST FOR FUN.</p>
-                <a href="#" class="yt-card-btn"
-                  >View Project <i class="fa-solid fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="yt-project-card gsap-onic-card">
-              <div class="yt-thumbnail-wrapper">
-                <img
-                  src="images/image4.png"
-                  alt="Calculator - Creative Coding Project"
-                  loading="lazy"
-                />
-              </div>
-              <div class="yt-meta-row">
-                <p class="yt-channel-name">Creative Coding</p>
-                <h3 class="yt-card-title">CALCULATOR</h3>
-                <p class="yt-card-desc">FUN CALCULATOR.</p>
-                <a href="#" class="yt-card-btn"
-                  >View Project <i class="fa-solid fa-arrow-right"></i
-                ></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="contact" id="contact">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-contact">
-            <span class="section-subtitle">AVAILABLE FOR WORK</span>
-            <h2 class="section-title">Get In Touch</h2>
-          </div>
-
-          <div class="contact-layout">
-            <div class="contact-channels gsap-contact-left">
-              <a
-                href="mailto:abdulahad3773@gmail.com"
-                class="channel-row magnetic"
-              >
-                <span class="channel-num">01</span>
-                <span class="channel-label"
-                  ><i class="fa-solid fa-envelope"></i> EMAIL</span
-                >
-                <span class="channel-link">
-                  abdulahad3773@gmail.com
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </span>
-              </a>
-
-              <a
-                href="https://github.com/abdulahad3773"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="channel-row magnetic"
-              >
-                <span class="channel-num">02</span>
-                <span class="channel-label"
-                  ><i class="fa-brands fa-github"></i> GITHUB</span
-                >
-                <span class="channel-link">
-                  github.com/abdulahad3773
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </span>
-              </a>
-
-              <a
-                href="https://instagram.com/abdulahad_3773"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="channel-row magnetic"
-              >
-                <span class="channel-num">03</span>
-                <span class="channel-label"
-                  ><i class="fa-brands fa-instagram"></i> INSTAGRAM</span
-                >
-                <span class="channel-link">
-                  @abdulahad_3773
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </span>
-              </a>
-
-              <a
-                href="https://wa.me/923405973400"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="channel-row magnetic"
-              >
-                <span class="channel-num">04</span>
-                <span class="channel-label"
-                  ><i class="fa-brands fa-whatsapp"></i> WHATSAPP</span
-                >
-                <span class="channel-link">
-                  +92 340 59734009
-                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </span>
-              </a>
-            </div>
-
-            <form
-              class="contact-form gsap-contact-right"
-              action="https://formspree.io/f/mqeorqal"
-              method="POST"
-            >
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="YOUR NAME"
-                  required
-                  aria-label="Your Name"
-                />
-                <span class="input-line"></span>
-              </div>
-              <div class="form-group">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="YOUR EMAIL"
-                  required
-                  aria-label="Your Email"
-                />
-                <span class="input-line"></span>
-              </div>
-              <div class="form-group">
-                <textarea
-                  name="message"
-                  placeholder="YOUR MESSAGE"
-                  rows="4"
-                  required
-                  aria-label="Your Message"
-                ></textarea>
-                <span class="input-line"></span>
-              </div>
-              <input
-                type="hidden"
-                name="_subject"
-                value="New Portfolio Message!"
-              />
-              <input type="hidden" name="_replyto" value="" />
-              <button type="submit" class="form-submit-btn magnetic">
-                SEND MESSAGE <i class="fa-solid fa-paper-plane"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-left">
-          <h3>ABDUL AHAD</h3>
-          <p>FRONTEND WEB DEVELOPER & WEB DESIGNER</p>
-        </div>
-        <div class="footer-right">
-          <p>© 2026 GLOBAL EDITION. ALL RIGHTS RESERVED</p>
         </div>
       </div>
-    </footer>
+    </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+    <section class="about" id="about">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-header">
+          <span class="section-subtitle">BIOGRAPHY</span>
+          <h2 class="section-title">What I Do</h2>
+        </div>
+        <div class="about-content">
+          <div class="about-card gsap-trigger-card">
+            <span class="card-num"># THE DIGITAL ARCHITECT</span>
+            <h3>
+              Building refined digital products with a focus on clean
+              aesthetic and baseline performance.
+            </h3>
+            <p>
+              As a dedicated Web Developer and Designer, I bridge the gap
+              between pure code and elegant design. I transform complex ideas
+              into simple, beautiful, and intuitive web experiences that
+              perform exceptionally across all platforms.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-skills">
+          <span class="section-subtitle">INVENTORY</span>
+          <h2 class="section-title">Tech Stack</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-pill gsap-pill">
+            <div class="pill-flex">
+              <span class="pill-name"><i class="fa-brands fa-html5"></i> HTML</span>
+              <span class="pill-perc">95%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" data-width="95%"></div>
+            </div>
+          </div>
+          <div class="skill-pill gsap-pill">
+            <div class="pill-flex">
+              <span class="pill-name"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+              <span class="pill-perc">90%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" data-width="90%"></div>
+            </div>
+          </div>
+          <div class="skill-pill gsap-pill">
+            <div class="pill-flex">
+              <span class="pill-name"><i class="fa-brands fa-js"></i> JavaScript</span>
+              <span class="pill-perc">85%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" data-width="85%"></div>
+            </div>
+          </div>
+
+          <div class="skill-pill gsap-pill">
+            <div class="pill-flex">
+              <span class="pill-name"><i class="fa-brands fa-python"></i> Python</span>
+              <span class="pill-perc">90%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" data-width="90%"></div>
+            </div>
+          </div>
+
+          <div class="skill-pill gsap-pill">
+            <div class="pill-flex">
+              <span class="pill-name"><i class="fa-solid fa-database"></i> SQL Database</span>
+              <span class="pill-perc">85%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" data-width="85%"></div>
+            </div>
+          </div>
+
+          <div class="skill-pill gsap-pill">
+            <div class="pill-flex">
+              <span class="pill-name"><i class="fa-brands fa-github"></i> Git & GitHub</span>
+              <span class="pill-perc">85%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" data-width="85%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="education" id="education">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-education">
+          <span class="section-subtitle">ACADEMIC BACKGROUND</span>
+          <h2 class="section-title">Education</h2>
+        </div>
+
+        <div class="education-grid">
+          <!-- SSC Card -->
+          <div class="edu-card">
+            <div class="edu-header">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span class="edu-year">Secondary School Certificate</span>
+            </div>
+            <h3 class="edu-title">SSC (Matriculation)</h3>
+            <p class="edu-info">
+              Federal Board (FBISE) | Fazaia Inter College, Kallar Kahar
+            </p>
+            <div class="edu-grade">88%</div>
+          </div>
+
+          <!-- HSSC Card -->
+          <div class="edu-card">
+            <div class="edu-header">
+              <i class="fa-solid fa-book-open"></i>
+              <span class="edu-year">Higher Secondary School Certificate</span>
+            </div>
+            <h3 class="edu-title">HSSC (Intermediate)</h3>
+            <p class="edu-info">
+              Federal Board (FBISE) | Fazaia Inter College, Kallar Kahar
+            </p>
+            <div class="edu-grade">85%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="languages" id="languages">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-languages">
+          <span class="section-subtitle">COMMUNICATION</span>
+          <h2 class="section-title">Languages</h2>
+        </div>
+        <div class="languages-grid">
+          <div class="language-card gsap-lang">
+            <div class="lang-meta">
+              <span class="lang-title">English</span>
+              <span class="lang-status">Professional</span>
+            </div>
+            <p>
+              Fluent execution in technical documentation, professional
+              collaboration, and structural communication.
+            </p>
+          </div>
+          <div class="language-card gsap-lang">
+            <div class="lang-meta">
+              <span class="lang-title">اردو (Urdu)</span>
+              <span class="lang-status">Native</span>
+            </div>
+            <p>
+              Complete fluid mastery in native conversation, linguistic
+              articulation, and local coordination.
+            </p>
+          </div>
+          <div class="language-card gsap-lang">
+            <div class="lang-meta">
+              <span class="lang-title">PUNJABI</span>
+              <span class="lang-status">Native</span>
+            </div>
+            <p>
+              Complete fluid mastery in native conversation, linguistic
+              articulation, and local coordination.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-projects">
+          <span class="section-subtitle">PORTFOLIO</span>
+          <h2 class="section-title">Featured Works</h2>
+        </div>
+
+        <!-- Container for the 4 Project Cards -->
+        <div class="projects-scroll-wrapper">
+          <div class="projects-pin-container">
+            <div class="projects-slider-deck">
+              <!-- Card 1 -->
+              <div class="yt-project-card gsap-onic-card">
+                <div class="yt-thumbnail-wrapper">
+                  <img src="images/image2.png" alt="Ahad Shoes - E-Commerce Project" loading="lazy" />
+                </div>
+                <div class="yt-meta-row">
+                  <p class="yt-channel-name">Web Development</p>
+                  <h3 class="yt-card-title">AHAD SHOES</h3>
+                  <p class="yt-card-desc">E-COMMERCE.</p>
+                  <a href="https://github.com/abdulahad3773/E-commerce.git" target="_blank" rel="noopener noreferrer"
+                    class="yt-card-btn">View Project <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="yt-project-card gsap-onic-card">
+                <div class="yt-thumbnail-wrapper">
+                  <img src="images/image1.png" alt="Makkah Travelers - UI/UX Design Project" loading="lazy" />
+                </div>
+                <div class="yt-meta-row">
+                  <p class="yt-channel-name">UI/UX Design</p>
+                  <h3 class="yt-card-title">Makkah Travelers</h3>
+                  <p class="yt-card-desc">
+                    High-fidelity graphics with silky transitions.
+                  </p>
+                  <a href="https://github.com/abdulahad3773/Makkah-Travelers.git" target="_blank"
+                    rel="noopener noreferrer" class="yt-card-btn">View Project <i
+                      class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+              <!-- card 5 -->
+              <div class="yt-project-card gsap-onic-card">
+                <div class="yt-thumbnail-wrapper">
+                  <img src="images/image5.png" alt="Rock Paper Scissors - Frontend Project" loading="lazy" />
+                </div>
+                <div class="yt-meta-row">
+                  <p class="yt-channel-name">Front end</p>
+                  <h3 class="yt-card-title">Rock Paper Scissors</h3>
+                  <p class="yt-card-desc">Fun interactive game.</p>
+                  <a href="https://github.com/abdulahad3773/rock-paper-scessor.git" target="_blank"
+                    rel="noopener noreferrer" class="yt-card-btn">View Project <i
+                      class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="yt-project-card gsap-onic-card">
+                <div class="yt-thumbnail-wrapper">
+                  <img src="images/image3.png" alt="YouTube Clone - Frontend Project" loading="lazy" />
+                </div>
+                <div class="yt-meta-row">
+                  <p class="yt-channel-name">Front end</p>
+                  <h3 class="yt-card-title">YOUTUBE CLONE</h3>
+                  <p class="yt-card-desc">JUST FOR FUN.</p>
+                  <a href="https://github.com/abdulahad3773/youtube-clone.git" target="_blank" rel="noopener noreferrer"
+                    class="yt-card-btn">View Project <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+
+              <!-- Card 4 -->
+              <div class="yt-project-card gsap-onic-card">
+                <div class="yt-thumbnail-wrapper">
+                  <img src="images/image4.png" alt="Calculator - Creative Coding Project" loading="lazy" />
+                </div>
+                <div class="yt-meta-row">
+                  <p class="yt-channel-name">Creative Coding</p>
+                  <h3 class="yt-card-title">CALCULATOR</h3>
+                  <p class="yt-card-desc">FUN CALCULATOR.</p>
+                  <a href="https://github.com/abdulahad3773/calculator.git" target="_blank" rel="noopener noreferrer"
+                    class="yt-card-btn">View Project <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-contact">
+          <span class="section-subtitle">AVAILABLE FOR WORK</span>
+          <h2 class="section-title">Get In Touch</h2>
+        </div>
+
+        <div class="contact-layout">
+          <div class="contact-channels gsap-contact-left">
+            <a href="mailto:abdulahad3773@gmail.com" class="channel-row magnetic">
+              <span class="channel-num">01</span>
+              <span class="channel-label"><i class="fa-solid fa-envelope"></i> EMAIL</span>
+              <span class="channel-link">
+                abdulahad3773@gmail.com
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </span>
+            </a>
+
+            <a href="https://github.com/abdulahad3773" target="_blank" rel="noopener noreferrer"
+              class="channel-row magnetic">
+              <span class="channel-num">02</span>
+              <span class="channel-label"><i class="fa-brands fa-github"></i> GITHUB</span>
+              <span class="channel-link">
+                github.com/abdulahad3773
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </span>
+            </a>
+
+            <a href="https://instagram.com/abdulahad_3773" target="_blank" rel="noopener noreferrer"
+              class="channel-row magnetic">
+              <span class="channel-num">03</span>
+              <span class="channel-label"><i class="fa-brands fa-instagram"></i> INSTAGRAM</span>
+              <span class="channel-link">
+                @abdulahad_3773
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </span>
+            </a>
+
+            <a href="https://wa.me/923405973400" target="_blank" rel="noopener noreferrer" class="channel-row magnetic">
+              <span class="channel-num">04</span>
+              <span class="channel-label"><i class="fa-brands fa-whatsapp"></i> WHATSAPP</span>
+              <span class="channel-link">
+                +92 340 59734009
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </span>
+            </a>
+          </div>
+
+          <form class="contact-form gsap-contact-right" action="https://formspree.io/f/mqeorqal" method="POST">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="YOUR NAME" required aria-label="Your Name" />
+              <span class="input-line"></span>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="YOUR EMAIL" required aria-label="Your Email" />
+              <span class="input-line"></span>
+            </div>
+            <div class="form-group">
+              <textarea name="message" placeholder="YOUR MESSAGE" rows="4" required
+                aria-label="Your Message"></textarea>
+              <span class="input-line"></span>
+            </div>
+            <input type="hidden" name="_subject" value="New Portfolio Message!" />
+            <input type="hidden" name="_replyto" value="" />
+            <button type="submit" class="form-submit-btn magnetic">
+              SEND MESSAGE <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h3>ABDUL AHAD</h3>
+        <p>FRONTEND WEB DEVELOPER & WEB DESIGNER</p>
+      </div>
+      <div class="footer-right">
+        <p>© 2026 GLOBAL EDITION. ALL RIGHTS RESERVED</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>

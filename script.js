@@ -7,13 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const themeIcon = themeToggle.querySelector("i");
 
-  // Check Local Storage
-  const savedTheme = localStorage.getItem("portfolio-theme");
-  if (savedTheme) {
-    body.className = savedTheme;
-    themeIcon.className = savedTheme === "light-theme" ? "fa-solid fa-moon" : "fa-solid fa-sun";
-    themeToggle.setAttribute("aria-pressed", savedTheme === "light-theme" ? "true" : "false");
-  }
+  // Synchronize UI elements with the theme applied by the inline script
+  const isLightTheme = body.classList.contains("light-theme");
+  themeIcon.className = isLightTheme ? "fa-solid fa-moon" : "fa-solid fa-sun";
+  themeToggle.setAttribute("aria-pressed", isLightTheme ? "true" : "false");
 
   themeToggle.addEventListener("click", () => {
     if (body.classList.contains("dark-theme")) {
@@ -60,19 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function initMagnetic() {
     if (!isDesktop()) return;
     
-    const magneticElements = document.querySelectorAll(".magnetic");
+    const magneticElements = document.querySelectorAll(".magnetic:not(.magnetic-init)");
     magneticElements.forEach((el) => {
-      const newEl = el.cloneNode(true);
-      if (el.parentNode) {
-        el.parentNode.replaceChild(newEl, el);
-      }
+      el.classList.add("magnetic-init");
       
-      newEl.addEventListener("mousemove", (e) => {
-        const boundingBox = newEl.getBoundingClientRect();
+      el.addEventListener("mousemove", (e) => {
+        const boundingBox = el.getBoundingClientRect();
         const deltaX = e.clientX - boundingBox.left - boundingBox.width / 2;
         const deltaY = e.clientY - boundingBox.top - boundingBox.height / 2;
 
-        gsap.to(newEl, {
+        gsap.to(el, {
           x: deltaX * 0.45,
           y: deltaY * 0.45,
           duration: 0.3,
@@ -80,8 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      newEl.addEventListener("mouseleave", () => {
-        gsap.to(newEl, { x: 0, y: 0, duration: 0.4, ease: "elastic.out(1, 0.3)" });
+      el.addEventListener("mouseleave", () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.4, ease: "elastic.out(1, 0.3)" });
       });
     });
   }
@@ -273,55 +267,69 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "power2.out"
   });
 
-  // --- 9. Project Gallery Animated Layered Swipe Deck Framework ---
+  // --- 9. Project Gallery Horizontal Scroll Trigger Animation ---
+  const track = document.querySelector(".projects-slider-deck");
   const cards = gsap.utils.toArray(".gsap-onic-card");
   
-  if (cards.length > 0) {
-    // 1. Initial Stack Setup Configuration Loop
-    cards.forEach((card, index) => {
-      if (index > 0) {
-        gsap.set(card, {
-          y: index * 15,
-          scale: 1 - index * 0.04,
-          rotation: index % 2 === 0 ? index * 1.5 : index * -1.5,
-          zIndex: cards.length - index
-        });
-      } else {
-        gsap.set(card, { zIndex: cards.length, rotation: -1 });
-      }
-    });
+  if (track && cards.length > 0) {
+    // Only init GSAP scroll pin on PC/desktop viewports (width > 992px)
+    if (window.innerWidth > 992) {
+      // We construct a ScrollTrigger timeline to allow start/end buffer pauses
+      const swipeTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".projects-scroll-wrapper",
+          start: "center center", // Pin when the cards container reaches the center of the screen
+          end: () => `+=${window.innerHeight * 1.5}`, // Slows down the vertical scroll speed
+          pin: ".projects-pin-container",
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        }
+      });
 
-    // 2. Continuous Scroll Timeline ScrollTrigger Construction
-    const swipeTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".projects-slider-deck",
-        start: "top 20%",
-        end: `+=${cards.length * 400}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1
-      }
-    });
+      // The horizontal translation takes place from progress 0.1 to 0.9 in the timeline.
+      // This gives a 10% scroll buffer at the start and 10% scroll buffer at the end
+      // so the first and last project cards stay stationary and fully visible.
+      swipeTimeline.to(track, {
+        x: () => -(track.scrollWidth - window.innerWidth),
+        ease: "none",
+        duration: 0.8
+      }, 0.1);
 
-    // 3. Sequential Swipe Animation Assembly Lines
-    cards.forEach((card, index) => {
-      if (index < cards.length - 1) {
-        swipeTimeline.to(card, {
-          x: index % 2 === 0 ? "-70vw" : "70vw",
-          rotation: index % 2 === 0 ? -15 : 15,
-          opacity: 0,
-          duration: 1
-        }, `card-${index}`)
-        
-        .to(cards.slice(index + 1), {
-          y: (i) => i * 15,
-          scale: (i) => 1 - i * 0.04,
-          rotation: (i) => (i + index) % 2 === 0 ? 1.5 : -1.5,
-          duration: 0.6,
-          ease: "power1.out"
-        }, `card-${index}+=0.2`);
-      }
-    });
+      // Add entry animations to each card as it slides into the viewport
+      cards.forEach((card) => {
+        gsap.fromTo(card,
+          { 
+            opacity: 0, 
+            scale: 0.9, 
+            y: 50,
+            rotation: 3
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            rotation: 0,
+            duration: 0.4,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: swipeTimeline, // Triggers relative to timeline progress
+              start: "left 90%",
+              toggleActions: "play none none none"
+            }
+          }
+        );
+      });
+    } else {
+      // On mobile/touch devices, ensure cards are fully visible immediately
+      gsap.set(cards, { 
+        opacity: 1, 
+        scale: 1, 
+        y: 0, 
+        rotation: 0 
+      });
+    }
   }
 
   // --- 10. Contact Module Split-Asymmetric Framework Entry Placement ---

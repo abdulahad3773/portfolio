@@ -1817,3 +1817,27 @@ textarea:focus-visible {
     background-position: center 30%;
   }
 }
+/* --- Form Submission Feedback --- */
+.form-feedback {
+  text-align: center;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  display: none;
+}
+
+.form-feedback.success {
+  display: block;
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.form-feedback.error {
+  display: block;
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border: 1px solid #f44336;
+}

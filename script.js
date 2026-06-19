@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const magneticElements = document.querySelectorAll(".magnetic");
     magneticElements.forEach((el) => {
-      // Clean up old listeners
       const newEl = el.cloneNode(true);
       if (el.parentNode) {
         el.parentNode.replaceChild(newEl, el);
@@ -440,4 +439,59 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // --- 12. Contact Form Submission Handler ---
+  const contactForm = document.querySelector(".contact-form");
+  
+  if (contactForm) {
+    contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = contactForm.querySelector(".form-submit-btn");
+      const originalBtnText = submitBtn.innerHTML;
+      
+      // Show loading state
+      submitBtn.innerHTML = 'SENDING... <i class="fa-solid fa-spinner fa-spin"></i>';
+      submitBtn.disabled = true;
+      
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Success
+          submitBtn.innerHTML = 'SENT! <i class="fa-solid fa-check"></i>';
+          submitBtn.style.background = '#4CAF50';
+          contactForm.reset();
+          
+          // Reset button after 3 seconds
+          setTimeout(() => {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.style.background = '';
+            submitBtn.disabled = false;
+          }, 3000);
+        } else {
+          throw new Error('Failed to send');
+        }
+      } catch (error) {
+        // Error
+        submitBtn.innerHTML = 'TRY AGAIN <i class="fa-solid fa-exclamation-triangle"></i>';
+        submitBtn.style.background = '#f44336';
+        submitBtn.disabled = false;
+        
+        // Reset button after 3 seconds
+        setTimeout(() => {
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.style.background = '';
+        }, 3000);
+      }
+    });
+  }
+
 });

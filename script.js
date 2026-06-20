@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const isLightTheme = body.classList.contains("light-theme");
   themeIcon.className = isLightTheme ? "fa-solid fa-moon" : "fa-solid fa-sun";
   themeToggle.setAttribute("aria-pressed", isLightTheme ? "true" : "false");
+  
+  // Explicitly sync the initial screen-reader accessibility labels on boot
+  themeToggle.setAttribute("aria-label", isLightTheme ? "Switch to Dark Mode" : "Switch to Light Mode");
 
   themeToggle.addEventListener("click", () => {
     if (body.classList.contains("dark-theme")) {
@@ -18,11 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
       themeIcon.className = "fa-solid fa-moon";
       localStorage.setItem("portfolio-theme", "light-theme");
       themeToggle.setAttribute("aria-pressed", "true");
+      themeToggle.setAttribute("aria-label", "Switch to Dark Mode");
     } else {
       body.classList.replace("light-theme", "dark-theme");
       themeIcon.className = "fa-solid fa-sun";
       localStorage.setItem("portfolio-theme", "dark-theme");
       themeToggle.setAttribute("aria-pressed", "false");
+      themeToggle.setAttribute("aria-label", "Switch to Light Mode");
     }
   });
 
@@ -43,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const interactiveTargets = document.querySelectorAll(
-      ".magnetic, .nav-item, .project-card, .btn, .channel-row, .skill-pill, .language-card, input, textarea, button"
+      ".magnetic, .nav-item, .project-card, .btn, .channel-row, .skill-card, .language-card, input, textarea, button"
     );
     interactiveTargets.forEach((target) => {
       target.addEventListener("mouseenter", () => cursorBall.classList.add("cursor-hover-active"));
@@ -221,115 +226,369 @@ document.addEventListener("DOMContentLoaded", () => {
     ease: "power3.out",
   });
 
-  // --- 8. Skill Inventory Progressive Capsule Shutter Shimmer ---
+  // --- 8. MODERN SKILL CARDS ANIMATION (UPDATED) ---
   if (document.querySelector(".skills")) {
-    gsap.from(".gsap-pill", {
+    // Animate category headers
+    gsap.from(".category-header", {
       scrollTrigger: {
-        trigger: ".skills-grid",
-        start: "top 85%", 
+        trigger: ".skills-showcase",
+        start: "top 85%",
         toggleActions: "play none none none",
       },
       opacity: 0,
-      y: 40,
-      stagger: 0.1,
-      duration: 0.8,
+      x: -30,
+      stagger: 0.15,
+      duration: 0.6,
       ease: "power2.out",
+    });
+
+    // Animate skill cards
+    gsap.from(".skill-card", {
+      scrollTrigger: {
+        trigger: ".skills-showcase",
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+      opacity: 0,
+      y: 50,
+      stagger: 0.08,
+      duration: 0.8,
+      ease: "power3.out",
       clearProps: "transform,opacity",
       onComplete: () => {
-        document.querySelectorAll(".progress").forEach((bar) => {
-          gsap.to(bar, { width: bar.getAttribute("data-width"), duration: 1.4, ease: "power3.out" });
+        // Animate progress bars
+        document.querySelectorAll(".skill-card").forEach((card) => {
+          const progressBar = card.querySelector(".skill-progress-bar");
+          const progress = card.dataset.progress || "0";
+          
+          if (progressBar) {
+            gsap.to(progressBar, {
+              width: `${progress}%`,
+              duration: 1.4,
+              ease: "power3.out",
+              delay: 0.2,
+            });
+          }
         });
       },
     });
   }
 
   // --- 8b. Languages Micro-structural Reveal Frame ---
-  gsap.from(".gsap-lang", {
-    scrollTrigger: { trigger: ".languages-grid", start: "top 85%" },
-    opacity: 0, 
-    y: 30, 
-    stagger: 0.15, 
-    duration: 0.9, 
-    ease: "power3.out",
-    clearProps: "transform,opacity"
+// --- 8b. Languages - Pinned Cards Animation ---
+const langCards = document.querySelectorAll('.lang-card');
+const langSection = document.querySelector('.languages');
+
+if (langCards.length && langSection) {
+  
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.pinboard',
+      start: 'top 80%',
+      toggleActions: 'play none none reverse',
+      invalidateOnRefresh: true,
+    }
   });
 
-  // --- 8c. Education Section Reveal ---
-  gsap.from(".edu-card", {
+  // Animate cards in
+  tl.fromTo(langCards,
+    { 
+      opacity: 0, 
+      y: 60, 
+      scale: 0.9 
+    },
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.9,
+      stagger: 0.15,
+      ease: 'back.out(1.7)',
+      onComplete: () => {
+        // NUCLEAR OPTION: Clear everything GSAP touched
+        langCards.forEach((card, i) => {
+          // Kill any GSAP tweens on this element
+          gsap.killTweensOf(card);
+          // Remove ALL inline styles set by GSAP
+          card.style.cssText = '';
+          // Re-apply ONLY the rotation from CSS (not translateX)
+          const rotations = ['-4deg', '5deg', '-2deg'];
+          card.style.transform = `rotate(${rotations[i]})`;
+          card.style.opacity = '1';
+        });
+      }
+    }
+  );
+
+  // Animate thumbtacks
+  const tacks = document.querySelectorAll('.thumbtack');
+  tl.fromTo(tacks,
+    { y: -50, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.15,
+      ease: 'bounce.out',
+      onComplete: () => {
+        tacks.forEach(tack => {
+          gsap.killTweensOf(tack);
+          tack.style.cssText = '';
+          tack.style.opacity = '1';
+        });
+      }
+    },
+    '-=0.4'
+  );
+}
+
+  // --- 8c. Education Section Reveal - FIXED for both cards ---
+const eduCards = document.querySelectorAll(".edu-card");
+
+if (eduCards.length > 0) {
+  // Reset any existing GSAP properties
+  eduCards.forEach(card => {
+    gsap.set(card, { 
+      opacity: 0, 
+      y: 30,
+      clearProps: "all"
+    });
+  });
+
+  // Create a single timeline for all education cards
+  const eduTl = gsap.timeline({
     scrollTrigger: {
       trigger: ".education-grid",
-      start: "top 85%"
+      start: "top 85%",
+      toggleActions: "play none none none",
     },
-    opacity: 0,
-    y: 30,
-    stagger: 0.2,
-    duration: 0.8,
-    ease: "power2.out"
+    defaults: {
+      duration: 0.8,
+      ease: "power3.out"
+    }
   });
 
-  // --- 9. Project Gallery Horizontal Scroll Trigger Animation ---
+  // Animate each card with stagger
+  eduTl
+    .to(eduCards, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+}
+
+  // --- 9. Project Gallery - FULLY FIXED for Mobile, Tablet & Desktop ---
   const track = document.querySelector(".projects-slider-deck");
   const cards = gsap.utils.toArray(".gsap-onic-card");
+  const scrollWrapper = document.querySelector(".projects-scroll-wrapper");
+  const pinContainer = document.querySelector(".projects-pin-container");
   
-  if (track && cards.length > 0) {
-    // Only init GSAP scroll pin on PC/desktop viewports (width > 992px)
-    if (window.innerWidth > 992) {
-      // We construct a ScrollTrigger timeline to allow start/end buffer pauses
-      const swipeTimeline = gsap.timeline({
+  if (track && cards.length > 0 && scrollWrapper) {
+    
+    // Clean up any previous ScrollTriggers tied to projects
+    function killAllProjectTriggers() {
+      ScrollTrigger.getAll().forEach(st => {
+        const triggerEl = st.vars.trigger;
+        if (
+          triggerEl === scrollWrapper ||
+          triggerEl === track ||
+          triggerEl === pinContainer ||
+          (st.vars.containerAnimation)
+        ) {
+          st.kill();
+        }
+      });
+    }
+
+    // Unpin the pin container (in case it was pinned before)
+    function unpinContainer() {
+      if (pinContainer) {
+        ScrollTrigger.getAll().forEach(st => {
+          if (st.vars.pin && st.vars.pin === pinContainer) {
+            st.kill();
+          }
+        });
+        // Broaden cleanup target properties to wash out remaining desktop calculations on resize
+        gsap.set([track, cards, pinContainer], { clearProps: "all" });
+      }
+    }
+
+    // DESKTOP: GSAP horizontal scroll with pinning
+    function setupDesktopProjects() {
+      killAllProjectTriggers();
+      unpinContainer();
+      
+      // Reset track position
+      gsap.set(track, { clearProps: "transform" });
+      
+      // Ensure native scroll is disabled on desktop wrapper
+      scrollWrapper.style.overflow = "hidden";
+      scrollWrapper.style.overflowX = "hidden";
+      
+      const scrollDistance = track.scrollWidth - window.innerWidth;
+      
+      // If content fits, just animate cards in
+      if (scrollDistance <= 0) {
+        cards.forEach((card, i) => {
+          gsap.set(card, { clearProps: "all" });
+          gsap.fromTo(card, 
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1, y: 0,
+              duration: 0.6,
+              delay: i * 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                toggleActions: "play none none none"
+              }
+            }
+          );
+        });
+        return;
+      }
+
+      // Create the horizontal scroll timeline
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".projects-scroll-wrapper",
-          start: "center center", // Pin when the cards container reaches the center of the screen
-          end: () => `+=${window.innerHeight * 1.5}`, // Slows down the vertical scroll speed
-          pin: ".projects-pin-container",
+          trigger: scrollWrapper,
+          start: "center center",
+          end: () => `+=${scrollDistance + window.innerHeight * 0.5}`,
+          pin: pinContainer,
           scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         }
       });
 
-      // The horizontal translation takes place from progress 0.1 to 0.9 in the timeline.
-      // This gives a 10% scroll buffer at the start and 10% scroll buffer at the end
-      // so the first and last project cards stay stationary and fully visible.
-      swipeTimeline.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth),
+      tl.to(track, {
+        x: () => -scrollDistance,
         ease: "none",
-        duration: 0.8
-      }, 0.1);
-
-      // Add entry animations to each card as it slides into the viewport
-      cards.forEach((card) => {
-        gsap.fromTo(card,
-          { 
-            opacity: 0, 
-            scale: 0.9, 
-            y: 50,
-            rotation: 3
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            rotation: 0,
-            duration: 0.4,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              containerAnimation: swipeTimeline, // Triggers relative to timeline progress
-              start: "left 90%",
-              toggleActions: "play none none none"
-            }
-          }
-        );
+        duration: 1
       });
-    } else {
-      // On mobile/touch devices, ensure cards are fully visible immediately
-      gsap.set(cards, { 
-        opacity: 1, 
-        scale: 1, 
-        y: 0, 
-        rotation: 0 
+
+      // Animate cards as they come into view during horizontal scroll
+      cards.forEach((card) => {
+        gsap.set(card, { opacity: 0, y: 40, scale: 0.95 });
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: tl,
+            start: "left 92%",
+            toggleActions: "play none none none"
+          }
+        });
       });
     }
+
+    // MOBILE/TABLET: No horizontal scroll, cards stack vertically naturally
+    function setupMobileProjects() {
+      killAllProjectTriggers();
+      unpinContainer();
+      
+      // Clear any GSAP transforms and properties completely
+      gsap.set([track, cards, pinContainer], { clearProps: "all" });
+      
+      // Ensure no overflow scroll (CSS handles vertical stacking)
+      scrollWrapper.style.overflow = "visible";
+      scrollWrapper.style.overflowX = "visible";
+      scrollWrapper.style.overflowY = "visible";
+      track.style.transform = "";
+      
+      // Reset all cards to hidden state
+      cards.forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(30px) scale(0.95)";
+        card.style.transition = "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
+      });
+
+      // Create a single IntersectionObserver for the projects section
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // When projects section is visible, animate all cards with stagger
+            cards.forEach((card, i) => {
+              setTimeout(() => {
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0) scale(1)";
+              }, i * 150);
+            });
+            sectionObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+      });
+
+      const projectsSection = document.getElementById("projects");
+      if (projectsSection) {
+        sectionObserver.observe(projectsSection);
+      }
+
+      // Also reveal cards individually if they enter viewport (safety net)
+      const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0) scale(1)";
+            cardObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2,
+        rootMargin: "0px 50px 0px 0px"
+      });
+
+      cards.forEach(card => {
+        cardObserver.observe(card);
+      });
+    }
+
+    // Check viewport and apply correct setup
+    function checkAndSetup() {
+      const isMobile = window.innerWidth <= 992;
+      
+      if (isMobile) {
+        setupMobileProjects();
+      } else {
+        setupDesktopProjects();
+      }
+    }
+
+    // Initial setup
+    checkAndSetup();
+
+    // Debounced resize handler
+    let resizeDebounce;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeDebounce);
+      resizeDebounce = setTimeout(() => {
+        const wasMobile = scrollWrapper.style.overflow === "auto" || scrollWrapper.style.overflowX === "auto";
+        const isMobileNow = window.innerWidth <= 992;
+        
+        if (wasMobile !== isMobileNow) {
+          checkAndSetup();
+        }
+      }, 400);
+    });
+
+    // Handle orientation change on mobile
+    window.addEventListener("orientationchange", () => {
+      setTimeout(() => {
+        if (window.innerWidth <= 992) {
+          setupMobileProjects();
+        }
+      }, 500);
+    });
   }
 
   // --- 10. Contact Module Split-Asymmetric Framework Entry Placement ---
@@ -344,7 +603,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- 11. FIXED: Cinematic Mobile Navigation Menu Toggle Engine ---
+  // --- 11. Cinematic Mobile Navigation Menu Toggle Engine ---
   const menuToggle = document.getElementById("menuToggle");
   const mobileNavWrapper = document.querySelector(".nav-wrapper");
   let isMenuOpen = false;
@@ -354,9 +613,8 @@ document.addEventListener("DOMContentLoaded", () => {
     menuToggle.classList.add("active");
     mobileNavWrapper.classList.add("active");
     menuToggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden"; // Prevent background scroll
+    document.body.style.overflow = "hidden";
     
-    // Animate nav items in
     gsap.to(".nav-item", {
       y: 0, 
       opacity: 1, 
@@ -372,9 +630,8 @@ document.addEventListener("DOMContentLoaded", () => {
     menuToggle.classList.remove("active");
     mobileNavWrapper.classList.remove("active");
     menuToggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = ""; // Restore scroll
+    document.body.style.overflow = "";
     
-    // Reset nav items
     gsap.to(".nav-item", { 
       y: 30, 
       opacity: 0, 
@@ -392,17 +649,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (menuToggle && mobileNavWrapper) {
-    // Toggle menu on hamburger click
     menuToggle.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleMenu();
     });
 
-    // Close menu when a nav item is clicked (mobile only)
     navItems.forEach((item) => {
       item.addEventListener("click", (e) => {
         if (isMenuOpen && !isDesktop()) {
-          // Let the link navigation happen, then close
           setTimeout(() => {
             closeMenu();
           }, 100);
@@ -410,7 +664,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Close menu when clicking outside on mobile
     document.addEventListener("click", (e) => {
       if (isMenuOpen && !isDesktop()) {
         const clickedInsideNav = mobileNavWrapper.contains(e.target);
@@ -422,24 +675,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Close menu on Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && isMenuOpen) {
         closeMenu();
-        menuToggle.focus(); // Return focus to hamburger
+        menuToggle.focus();
       }
     });
 
-    // Handle resize events
     window.addEventListener("resize", () => {
       if (isDesktop() && isMenuOpen) {
         closeMenu();
       }
       
-      // Re-init magnetic on desktop
       initMagnetic();
       
-      // Update bubble position if on desktop
       if (currentActiveItem && isDesktop()) {
         recalculateBubble(currentActiveItem);
       } else if (!isDesktop() && navWrapper) {
@@ -458,7 +707,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const submitBtn = contactForm.querySelector(".form-submit-btn");
       const originalBtnText = submitBtn.innerHTML;
       
-      // Show loading state
       submitBtn.innerHTML = 'SENDING... <i class="fa-solid fa-spinner fa-spin"></i>';
       submitBtn.disabled = true;
       
@@ -473,12 +721,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         if (response.ok) {
-          // Success
           submitBtn.innerHTML = 'SENT! <i class="fa-solid fa-check"></i>';
           submitBtn.style.background = '#4CAF50';
           contactForm.reset();
           
-          // Reset button after 3 seconds
           setTimeout(() => {
             submitBtn.innerHTML = originalBtnText;
             submitBtn.style.background = '';
@@ -488,12 +734,10 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error('Failed to send');
         }
       } catch (error) {
-        // Error
         submitBtn.innerHTML = 'TRY AGAIN <i class="fa-solid fa-exclamation-triangle"></i>';
         submitBtn.style.background = '#f44336';
         submitBtn.disabled = false;
         
-        // Reset button after 3 seconds
         setTimeout(() => {
           submitBtn.innerHTML = originalBtnText;
           submitBtn.style.background = '';
@@ -501,5 +745,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
 });

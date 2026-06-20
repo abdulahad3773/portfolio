@@ -78,6 +78,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
   </head>
 
   <body class="dark-theme">
@@ -147,6 +150,7 @@
     </header>
 
     <main>
+      <!-- ===== HERO SECTION ===== -->
       <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-container">
@@ -186,6 +190,7 @@
         </div>
       </section>
 
+      <!-- ===== ABOUT SECTION ===== -->
       <section class="about" id="about">
         <div class="section-container">
           <div class="section-header gsap-trigger-header">
@@ -210,166 +215,278 @@
         </div>
       </section>
 
-      <section class="skills" id="skills">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-skills">
-            <span class="section-subtitle">INVENTORY</span>
-            <h2 class="section-title">Tech Stack</h2>
-          </div>
-          <div class="skills-grid">
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-html5"></i> HTML</span
-                >
-                <span class="pill-perc">95%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="95%"></div>
-              </div>
-            </div>
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-css3-alt"></i> CSS</span
-                >
-                <span class="pill-perc">90%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="90%"></div>
-              </div>
-            </div>
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-js"></i> JavaScript</span
-                >
-                <span class="pill-perc">85%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-python"></i> Python</span
-                >
-                <span class="pill-perc">90%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="90%"></div>
-              </div>
-            </div>
-
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-solid fa-database"></i> SQL Database</span
-                >
-                <span class="pill-perc">85%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="85%"></div>
-              </div>
-            </div>
-
-            <div class="skill-pill gsap-pill">
-              <div class="pill-flex">
-                <span class="pill-name"
-                  ><i class="fa-brands fa-github"></i> Git & GitHub</span
-                >
-                <span class="pill-perc">85%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress" data-width="85%"></div>
-              </div>
-            </div>
-          </div>
+      <!-- ===== SKILLS SECTION ===== -->
+    <section class="skills" id="skills">
+      <div class="section-container">
+        <div class="section-header gsap-trigger-skills">
+          <span class="section-subtitle">EXPERTISE</span>
+          <h2 class="section-title">My Arsenal</h2>
+          <p class="section-description">Technologies I work with to build exceptional digital experiences</p>
         </div>
-      </section>
+        
+        <div class="skills-showcase">
+          
+          <!-- Frontend Development -->
+          <div class="skill-category">
+            <div class="category-header">
+              <h3 class="category-title">Frontend Development</h3>
+              <span class="category-count">3 skills</span>
+            </div>
+            <div class="skill-cards">
+              
+              <!-- HTML5 -->
+              <div class="skill-card gsap-pill html-card" data-progress="95">
+                <div class="skill-icon-wrapper">
+                  <img src="images/html.png" alt="HTML5" />
+                </div>
+                <div class="skill-card-header">
+                  <div class="skill-info">
+                    <span class="skill-name">HTML5</span>
+                    <span class="skill-level">Advanced</span>
+                  </div>
+                  <span class="skill-percentage">95%</span>
+                </div>
+                <div class="skill-progress-track">
+                  <div class="skill-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">Semantic</span>
+                  <span class="skill-tag">Accessible</span>
+                  <span class="skill-tag">SEO</span>
+                </div>
+              </div>
+    
+              <!-- CSS3 -->
+              <div class="skill-card gsap-pill css-card" data-progress="90">
+                <div class="skill-icon-wrapper">
+                  <img src="images/css.png" alt="CSS3" />
+                </div>
+                <div class="skill-card-header">
+                  <div class="skill-info">
+                    <span class="skill-name">CSS3</span>
+                    <span class="skill-level">Advanced</span>
+                  </div>
+                  <span class="skill-percentage">90%</span>
+                </div>
+                <div class="skill-progress-track">
+                  <div class="skill-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">Flexbox</span>
+                  <span class="skill-tag">Grid</span>
+                  <span class="skill-tag">Animations</span>
+                </div>
+              </div>
+    
+              <!-- JavaScript -->
+              <div class="skill-card gsap-pill js-card" data-progress="85">
+                <div class="skill-icon-wrapper">
+                  <img src="images/js.png" alt="JavaScript" />
+                </div>
+                <div class="skill-card-header">
+                  <div class="skill-info">
+                    <span class="skill-name">JavaScript</span>
+                    <span class="skill-level">Advanced</span>
+                  </div>
+                  <span class="skill-percentage">85%</span>
+                </div>
+                <div class="skill-progress-track">
+                  <div class="skill-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">ES6+</span>
+                  <span class="skill-tag">DOM</span>
+                  <span class="skill-tag">Async</span>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+    
+          <!-- Backend & Databases -->
+          <div class="skill-category">
+            <div class="category-header">
+              <h3 class="category-title">Backend & Data</h3>
+              <span class="category-count">2 skills</span>
+            </div>
+            <div class="skill-cards">
+              
+              <!-- Python -->
+              <div class="skill-card gsap-pill python-card" data-progress="90">
+                <div class="skill-icon-wrapper">
+                  <img src="images/python.png" alt="Python" />
+                </div>
+                <div class="skill-card-header">
+                  <div class="skill-info">
+                    <span class="skill-name">Python</span>
+                    <span class="skill-level">Advanced</span>
+                  </div>
+                  <span class="skill-percentage">90%</span>
+                </div>
+                <div class="skill-progress-track">
+                  <div class="skill-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">Django</span>
+                  <span class="skill-tag">Flask</span>
+                  <span class="skill-tag">APIs</span>
+                </div>
+              </div>
+    
+              <!-- SQL Database -->
+              <div class="skill-card gsap-pill sql-card" data-progress="85">
+                <div class="skill-icon-wrapper">
+                  <img src="images/sql.png" alt="SQL Database" />
+                </div>
+                <div class="skill-card-header">
+                  <div class="skill-info">
+                    <span class="skill-name">SQL Database</span>
+                    <span class="skill-level">Advanced</span>
+                  </div>
+                  <span class="skill-percentage">85%</span>
+                </div>
+                <div class="skill-progress-track">
+                  <div class="skill-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">MySQL</span>
+                  <span class="skill-tag">PostgreSQL</span>
+                  <span class="skill-tag">MongoDB</span>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+    
+          <!-- Tools & Others -->
+          <div class="skill-category">
+            <div class="category-header">
+              <h3 class="category-title">Tools & Workflow</h3>
+              <span class="category-count">1 skill</span>
+            </div>
+            <div class="skill-cards">
+              
+              <!-- Git & GitHub -->
+              <div class="skill-card gsap-pill git-card" data-progress="85">
+                <div class="skill-icon-wrapper">
+                  <img src="images/git.png" alt="Git & GitHub" />
+                </div>
+                <div class="skill-card-header">
+                  <div class="skill-info">
+                    <span class="skill-name">Git & GitHub</span>
+                    <span class="skill-level">Advanced</span>
+                  </div>
+                  <span class="skill-percentage">85%</span>
+                </div>
+                <div class="skill-progress-track">
+                  <div class="skill-progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="skill-tags">
+                  <span class="skill-tag">Version Control</span>
+                  <span class="skill-tag">CI/CD</span>
+                  <span class="skill-tag">Open Source</span>
+                </div>
+              </div>
+    
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </section>
 
+      <!-- ===== EDUCATION SECTION ===== -->
       <section class="education" id="education">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-education">
-            <span class="section-subtitle">ACADEMIC BACKGROUND</span>
-            <h2 class="section-title">Education</h2>
-          </div>
-
-          <div class="education-grid">
-            <!-- SSC Card -->
-            <div class="edu-card">
-              <div class="edu-header">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span class="edu-year">Secondary School Certificate</span>
-              </div>
-              <h3 class="edu-title">SSC (Matriculation)</h3>
-              <p class="edu-info">
-                Federal Board (FBISE) | Fazaia Inter College, Kallar Kahar
-              </p>
-              <div class="edu-grade">88%</div>
+          <div class="section-container">
+            <div class="section-header gsap-trigger-education">
+              <span class="section-subtitle">LEARNING PATH</span>
+              <h2 class="section-title">Education</h2>
+              <p class="section-description">A quick look at my academic background</p>
             </div>
-
-            <!-- HSSC Card -->
-            <div class="edu-card">
-              <div class="edu-header">
-                <i class="fa-solid fa-book-open"></i>
-                <span class="edu-year"
-                  >Higher Secondary School Certificate</span
-                >
+            
+            <div class="education-grid">
+              
+              <!-- Card 1 -->
+              <div class="edu-card edu-card-1">
+                <div class="edu-card-header">
+                  <h3 class="edu-degree">HSSC (Intermediate)</h3>
+                  <span class="edu-grade">85%</span>
+                </div>
+                <p class="edu-institution">Fazaia Inter College, Kallar Kahar</p>
+                <p class="edu-board">Federal Board (FBISE)</p>
+                <p class="edu-note">Focused on Computer Science, Math & Physics — built my coding foundation.</p>
               </div>
-              <h3 class="edu-title">HSSC (Intermediate)</h3>
-              <p class="edu-info">
-                Federal Board (FBISE) | Fazaia Inter College, Kallar Kahar
-              </p>
-              <div class="edu-grade">85%</div>
+        
+              <!-- Card 2 -->
+              <div class="edu-card edu-card-2">
+                <div class="edu-card-header">
+                  <h3 class="edu-degree">SSC (Matriculation)</h3>
+                  <span class="edu-grade">88%</span>
+                </div>
+                <p class="edu-institution">Fazaia Inter College, Kallar Kahar</p>
+                <p class="edu-board">Federal Board (FBISE)</p>
+                <p class="edu-note">Discovered my passion for technology and problem-solving during these years.</p>
+              </div>
+        
             </div>
           </div>
-        </div>
       </section>
 
+      <!-- ===== LANGUAGES SECTION ===== -->
       <section class="languages" id="languages">
-        <div class="section-container">
-          <div class="section-header gsap-trigger-languages">
-            <span class="section-subtitle">COMMUNICATION</span>
-            <h2 class="section-title">Languages</h2>
+          <div class="section-container">
+            <div class="section-header gsap-trigger-languages">
+              <span class="section-subtitle">COMMUNICATION</span>
+              <h2 class="section-title">Languages</h2>
+              <p class="section-description">Three languages I use to connect with the world</p>
+            </div>
+        
+            <div class="pinboard">
+              
+              <!-- Card 1: English -->
+              <div class="lang-card" data-rotation="-4">
+                <div class="card-pin">
+                  <div class="thumbtack"></div>
+                </div>
+                <div class="lang-status-badge">Professional</div>
+                <div class="fold-corner"></div>
+                <div class="lang-meta">
+                  <span class="lang-title">English</span>
+                </div>
+                <p>Fluent execution in technical documentation, professional collaboration, and structural communication.</p>
+              </div>
+        
+              <!-- Card 2: Urdu -->
+              <div class="lang-card" data-rotation="5">
+                <div class="card-pin">
+                  <div class="thumbtack"></div>
+                </div>
+                <div class="lang-status-badge">Native</div>
+                <div class="fold-corner"></div>
+                <div class="lang-meta">
+                  <span class="lang-title">اردو (Urdu)</span>
+                </div>
+                <p>Complete fluid mastery in native conversation, linguistic articulation, and local coordination.</p>
+              </div>
+        
+              <!-- Card 3: Punjabi -->
+              <div class="lang-card" data-rotation="-2">
+                <div class="card-pin">
+                  <div class="thumbtack"></div>
+                </div>
+                <div class="lang-status-badge">Native</div>
+                <div class="fold-corner"></div>
+                <div class="lang-meta">
+                  <span class="lang-title">Punjabi</span>
+                </div>
+                <p>Complete fluid mastery in native conversation, linguistic articulation, and local coordination.</p>
+              </div>
+        
+            </div>
           </div>
-          <div class="languages-grid">
-            <div class="language-card gsap-lang">
-              <div class="lang-meta">
-                <span class="lang-title">English</span>
-                <span class="lang-status">Professional</span>
-              </div>
-              <p>
-                Fluent execution in technical documentation, professional
-                collaboration, and structural communication.
-              </p>
-            </div>
-            <div class="language-card gsap-lang">
-              <div class="lang-meta">
-                <span class="lang-title">اردو (Urdu)</span>
-                <span class="lang-status">Native</span>
-              </div>
-              <p>
-                Complete fluid mastery in native conversation, linguistic
-                articulation, and local coordination.
-              </p>
-            </div>
-            <div class="language-card gsap-lang">
-              <div class="lang-meta">
-                <span class="lang-title">PUNJABI</span>
-                <span class="lang-status">Native</span>
-              </div>
-              <p>
-                Complete fluid mastery in native conversation, linguistic
-                articulation, and local coordination.
-              </p>
-            </div>
-          </div>
-        </div>
       </section>
 
+      <!-- ===== PROJECTS SECTION ===== -->
       <section class="projects" id="projects">
         <div class="section-container">
           <div class="section-header gsap-trigger-projects">
@@ -377,7 +494,6 @@
             <h2 class="section-title">Featured Works</h2>
           </div>
 
-          <!-- Container for the 4 Project Cards -->
           <div class="projects-scroll-wrapper">
             <div class="projects-pin-container">
               <div class="projects-slider-deck">
@@ -428,7 +544,8 @@
                     ></a>
                   </div>
                 </div>
-                <!-- card 5 -->
+
+                <!-- Card 3 -->
                 <div class="yt-project-card gsap-onic-card">
                   <div class="yt-thumbnail-wrapper">
                     <img
@@ -451,7 +568,7 @@
                   </div>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Card 4 -->
                 <div class="yt-project-card gsap-onic-card">
                   <div class="yt-thumbnail-wrapper">
                     <img
@@ -474,7 +591,7 @@
                   </div>
                 </div>
 
-                <!-- Card 4 -->
+                <!-- Card 5 -->
                 <div class="yt-project-card gsap-onic-card">
                   <div class="yt-thumbnail-wrapper">
                     <img
@@ -502,6 +619,7 @@
         </div>
       </section>
 
+      <!-- ===== CONTACT SECTION ===== -->
       <section class="contact" id="contact">
         <div class="section-container">
           <div class="section-header gsap-trigger-contact">
@@ -624,6 +742,7 @@
       </section>
     </main>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-left">
@@ -636,6 +755,7 @@
       </div>
     </footer>
 
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>

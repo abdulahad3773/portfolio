@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- 4. Cinematic Hero Entry Sequence & Background Parallax ---
+  // Hero text - NO reverse, plays once only
   gsap.from(".gsap-reveal", {
     y: "115%",
     duration: 1.2,
@@ -160,18 +161,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const subtitle = header.querySelector(".section-subtitle");
 
     if (subtitle && title) {
-      gsap.from([subtitle, title], {
-        scrollTrigger: {
-          trigger: header,
-          start: "top 85%",
-          toggleActions: "play none none none",
-        },
-        opacity: 0,
-        y: 25,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power2.out",
-      });
+      gsap.fromTo([subtitle, title], 
+        { opacity: 0, y: 25 },
+        {
+          scrollTrigger: {
+            trigger: header,
+            start: "top 85%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
+        }
+      );
     }
 
     if (title) {
@@ -182,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
             trigger: header,
             start: "top 75%",
             end: "bottom 20%",
-            toggleActions: "play reverse play reverse"
+            toggleActions: "play none none reverse"
           },
           "--underline-scale": 1,
           duration: 0.8,
@@ -215,169 +220,179 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- 7. About Biography Content Reveal ---
-  gsap.from(".gsap-trigger-card", {
-    scrollTrigger: {
-      trigger: ".about-content",
-      start: "top 80%",
-    },
-    opacity: 0,
-    x: -30,
-    duration: 1,
-    ease: "power3.out",
-  });
-
-  // --- 8. MODERN SKILL CARDS ANIMATION (UPDATED) ---
-  if (document.querySelector(".skills")) {
-    // Animate category headers
-    gsap.from(".category-header", {
+  gsap.fromTo(".gsap-trigger-card", 
+    { opacity: 0, x: -30 },
+    {
       scrollTrigger: {
-        trigger: ".skills-showcase",
-        start: "top 85%",
-        toggleActions: "play none none none",
+        trigger: ".about-content",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
       },
-      opacity: 0,
-      x: -30,
-      stagger: 0.15,
-      duration: 0.6,
-      ease: "power2.out",
-    });
-
-    // Animate skill cards
-    gsap.from(".skill-card", {
-      scrollTrigger: {
-        trigger: ".skills-showcase",
-        start: "top 85%",
-        toggleActions: "play none none none",
-      },
-      opacity: 0,
-      y: 50,
-      stagger: 0.08,
-      duration: 0.8,
+      opacity: 1,
+      x: 0,
+      duration: 1,
       ease: "power3.out",
-      clearProps: "transform,opacity",
-      onComplete: () => {
-        // Animate progress bars
-        document.querySelectorAll(".skill-card").forEach((card) => {
-          const progressBar = card.querySelector(".skill-progress-bar");
-          const progress = card.dataset.progress || "0";
-          
-          if (progressBar) {
-            gsap.to(progressBar, {
-              width: `${progress}%`,
-              duration: 1.4,
-              ease: "power3.out",
-              delay: 0.2,
-            });
+    }
+  );
+
+  // --- 8. MODERN SKILL CARDS ANIMATION (fully reversible) ---
+  if (document.querySelector(".skills")) {
+    // Animate category headers - plays on scroll down, reverses on scroll up
+    gsap.fromTo(".category-header",
+      { opacity: 0, x: -30 },
+      {
+        scrollTrigger: {
+          trigger: ".skills-showcase",
+          start: "top 85%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        x: 0,
+        stagger: 0.15,
+        duration: 0.6,
+        ease: "power2.out",
+      }
+    );
+
+    // Animate skill cards - plays on scroll down, reverses on scroll up
+    gsap.fromTo(".skill-card",
+      { opacity: 0, y: 50 },
+      {
+        scrollTrigger: {
+          trigger: ".skills-showcase",
+          start: "top 85%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        y: 0,
+        stagger: 0.08,
+        duration: 0.8,
+        ease: "power3.out",
+      }
+    );
+
+    // Animate each progress bar with its OWN ScrollTrigger, set up once
+    // (not nested inside an onComplete) so it fills on scroll down and
+    // un-fills cleanly every single time the user scrolls back up.
+    document.querySelectorAll(".skill-card").forEach((card) => {
+      const progressBar = card.querySelector(".skill-progress-bar");
+      const progress = card.dataset.progress || "0";
+
+      if (progressBar) {
+        gsap.fromTo(progressBar,
+          { width: "0%" },
+          {
+            width: `${progress}%`,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse",
+            }
           }
-        });
-      },
+        );
+      }
     });
   }
 
-  // --- 8b. Languages Micro-structural Reveal Frame ---
-// --- 8b. Languages - Pinned Cards Animation ---
-const langCards = document.querySelectorAll('.lang-card');
-const langSection = document.querySelector('.languages');
+  // --- 8b. Languages - Pinned Cards Animation (fully reversible) ---
+  const langCards = document.querySelectorAll('.lang-card');
+  const langSection = document.querySelector('.languages');
 
-if (langCards.length && langSection) {
-  
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.pinboard',
-      start: 'top 80%',
-      toggleActions: 'play none none reverse',
-      invalidateOnRefresh: true,
-    }
-  });
+  if (langCards.length && langSection) {
 
-  // Animate cards in
-  tl.fromTo(langCards,
-    { 
-      opacity: 0, 
-      y: 60, 
-      scale: 0.9 
-    },
-    {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.9,
-      stagger: 0.15,
-      ease: 'back.out(1.7)',
-      onComplete: () => {
-        // NUCLEAR OPTION: Clear everything GSAP touched
-        langCards.forEach((card, i) => {
-          // Kill any GSAP tweens on this element
-          gsap.killTweensOf(card);
-          // Remove ALL inline styles set by GSAP
-          card.style.cssText = '';
-          // Re-apply ONLY the rotation from CSS (not translateX)
-          const rotations = ['-4deg', '5deg', '-2deg'];
-          card.style.transform = `rotate(${rotations[i]})`;
-          card.style.opacity = '1';
-        });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.pinboard',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse',
+        invalidateOnRefresh: true,
       }
-    }
-  );
+    });
 
-  // Animate thumbtacks
-  const tacks = document.querySelectorAll('.thumbtack');
-  tl.fromTo(tacks,
-    { y: -50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.5,
-      stagger: 0.15,
-      ease: 'bounce.out',
-      onComplete: () => {
-        tacks.forEach(tack => {
-          gsap.killTweensOf(tack);
-          tack.style.cssText = '';
-          tack.style.opacity = '1';
-        });
+    // Cards drop/fade/rotate into place on scroll down, and reverse back
+    // out on scroll up. Rotation is driven by GSAP itself (using each
+    // card's data-rotation attribute) instead of being force-reset
+    // afterward, so there is always a valid "from" state to reverse to.
+    tl.fromTo(langCards,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9,
+        rotation: 0,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotation: (i, target) => parseFloat(target.dataset.rotation) || 0,
+        duration: 0.9,
+        stagger: 0.15,
+        ease: 'back.out(1.7)',
       }
-    },
-    '-=0.4'
-  );
-}
+    );
+
+    // Thumbtacks drop in on scroll down, lift away on scroll up.
+    const tacks = document.querySelectorAll('.thumbtack');
+    tl.fromTo(tacks,
+      { y: -50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.15,
+        ease: 'bounce.out',
+      },
+      '-=0.4'
+    );
+  }
 
   // --- 8c. Education Section Reveal - FIXED for both cards ---
-const eduCards = document.querySelectorAll(".edu-card");
+  const eduCards = document.querySelectorAll(".edu-card");
 
-if (eduCards.length > 0) {
-  // Reset any existing GSAP properties
-  eduCards.forEach(card => {
-    gsap.set(card, { 
-      opacity: 0, 
-      y: 30,
-      clearProps: "all"
+  if (eduCards.length > 0) {
+    // Reset any existing GSAP properties
+    eduCards.forEach(card => {
+      gsap.set(card, { 
+        opacity: 0, 
+        y: 30,
+        clearProps: "all"
+      });
     });
-  });
 
-  // Create a single timeline for all education cards
-  const eduTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".education-grid",
-      start: "top 85%",
-      toggleActions: "play none none none",
-    },
-    defaults: {
-      duration: 0.8,
-      ease: "power3.out"
-    }
-  });
-
-  // Animate each card with stagger
-  eduTl
-    .to(eduCards, {
-      opacity: 1,
-      y: 0,
-      stagger: 0.2,
-      duration: 0.8,
-      ease: "power3.out"
+    // Create a single timeline for all education cards
+    const eduTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".education-grid",
+        start: "top 85%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
+      },
+      defaults: {
+        duration: 0.8,
+        ease: "power3.out"
+      }
     });
-}
+
+    // Animate each card with stagger
+    eduTl
+      .fromTo(eduCards,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power3.out"
+        }
+      );
+  }
 
   // --- 9. Project Gallery - FULLY FIXED for Mobile, Tablet & Desktop ---
   const track = document.querySelector(".projects-slider-deck");
@@ -443,7 +458,8 @@ if (eduCards.length > 0) {
               scrollTrigger: {
                 trigger: card,
                 start: "top 85%",
-                toggleActions: "play none none none"
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
               }
             }
           );
@@ -472,20 +488,22 @@ if (eduCards.length > 0) {
 
       // Animate cards as they come into view during horizontal scroll
       cards.forEach((card) => {
-        gsap.set(card, { opacity: 0, y: 40, scale: 0.95 });
-        gsap.to(card, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.5,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: tl,
-            start: "left 92%",
-            toggleActions: "play none none none"
+        gsap.fromTo(card,
+          { opacity: 0, y: 40, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              containerAnimation: tl,
+              start: "left 92%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       });
     }
 
@@ -521,7 +539,13 @@ if (eduCards.length > 0) {
                 card.style.transform = "translateY(0) scale(1)";
               }, i * 150);
             });
-            sectionObserver.unobserve(entry.target);
+            // Don't unobserve - keep watching for reverse
+          } else {
+            // Reverse the animation when scrolling up
+            cards.forEach((card) => {
+              card.style.opacity = "0";
+              card.style.transform = "translateY(30px) scale(0.95)";
+            });
           }
         });
       }, {
@@ -540,7 +564,9 @@ if (eduCards.length > 0) {
           if (entry.isIntersecting) {
             entry.target.style.opacity = "1";
             entry.target.style.transform = "translateY(0) scale(1)";
-            cardObserver.unobserve(entry.target);
+          } else {
+            entry.target.style.opacity = "0";
+            entry.target.style.transform = "translateY(30px) scale(0.95)";
           }
         });
       }, {
@@ -593,14 +619,37 @@ if (eduCards.length > 0) {
 
   // --- 10. Contact Module Split-Asymmetric Framework Entry Placement ---
   if (document.querySelector(".contact-layout")) {
-    gsap.from(".gsap-contact-left .channel-row", {
-      scrollTrigger: { trigger: ".contact-layout", start: "top 80%" },
-      opacity: 0, x: -40, stagger: 0.12, duration: 0.8, ease: "power2.out",
-    });
-    gsap.from(".gsap-contact-right", {
-      scrollTrigger: { trigger: ".contact-layout", start: "top 80%" },
-      opacity: 0, x: 40, duration: 0.9, ease: "power2.out",
-    });
+    gsap.fromTo(".gsap-contact-left .channel-row",
+      { opacity: 0, x: -40 },
+      {
+        scrollTrigger: { 
+          trigger: ".contact-layout", 
+          start: "top 80%", 
+          end: "bottom 20%",
+          toggleActions: "play none none reverse" 
+        },
+        opacity: 1, 
+        x: 0, 
+        stagger: 0.12, 
+        duration: 0.8, 
+        ease: "power2.out",
+      }
+    );
+    gsap.fromTo(".gsap-contact-right",
+      { opacity: 0, x: 40 },
+      {
+        scrollTrigger: { 
+          trigger: ".contact-layout", 
+          start: "top 80%", 
+          end: "bottom 20%",
+          toggleActions: "play none none reverse" 
+        },
+        opacity: 1, 
+        x: 0, 
+        duration: 0.9, 
+        ease: "power2.out",
+      }
+    );
   }
 
   // --- 11. Cinematic Mobile Navigation Menu Toggle Engine ---
